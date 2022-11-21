@@ -1,16 +1,24 @@
 package entities.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import entities.SkillLevel;
+import lombok.*;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
+import java.util.Set;
+
+@NoArgsConstructor
+//@AllArgsConstructor
+@EqualsAndHashCode
 @Data
 @ToString
 public class SkillDto {
     private Integer id;
     private String department;
-    private String level;
+    private SkillLevel level;
+    private Set<DeveloperDto> developers;
+
+    public SkillDto(Integer id, String department, SkillLevel level) {
+        this.id = id;
+        this.department = department;
+        this.level = level;
+    }
 }

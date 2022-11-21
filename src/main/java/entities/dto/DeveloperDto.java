@@ -1,18 +1,32 @@
 package entities.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import entities.Gender;
+import lombok.*;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@NoArgsConstructor
+//@AllArgsConstructor
+@EqualsAndHashCode
 @Data
 @ToString
 public class DeveloperDto {
-    Integer id;
-    String name;
-    Integer age;
-    String gender;
-    Integer salary;
+    private Integer id;
+    private String name;
+    private Integer age;
+    private Gender gender;
+    private Integer salary;
+    private Set<CompanyDto> developerCompanies  = new HashSet<>();
+    private Set<ProjectDto> developerProjects = new HashSet<>();
+    private Set<SkillDto> developerSkills = new HashSet<>();
+
+    public DeveloperDto(Integer id, String name, Integer age, Gender gender, Integer salary) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.salary = salary;
+    }
 }
