@@ -29,7 +29,7 @@ public class CompanyController extends HttpServlet {
     private static final String UPDATE_URL = COMPANY + "updateCompanyForm.jsp";
     private static final String FIND_URL = COMPANY + "findCompany.jsp";
     private static final String DEVELOPERS_URL = COMPANY + "companyDevelopers.jsp";
-    private static final String PROJETCS_URL = COMPANY + "companyProjects.jsp";
+    private static final String PROJECTS_URL = COMPANY + "companyProjects.jsp";
 
     @Override
     public void init() {
@@ -59,7 +59,7 @@ public class CompanyController extends HttpServlet {
             }
         } else if (req.getParameterMap().containsKey("project")) {
             findProjects(req);
-            req.getRequestDispatcher(PROJETCS_URL).forward(req, resp);
+            req.getRequestDispatcher(PROJECTS_URL).forward(req, resp);
         } else if (req.getParameterMap().containsKey("developer")) {
             findDevelopers(req);
             req.getRequestDispatcher(DEVELOPERS_URL).forward(req, resp);
@@ -160,7 +160,6 @@ public class CompanyController extends HttpServlet {
     }
 
     private void addDeveloper(HttpServletRequest req) {
-
         Integer developerId = Integer.parseInt(req.getParameter("dev id"));
         Integer companyId = Integer.parseInt(req.getParameter("company_id"));
         try {
