@@ -16,12 +16,9 @@
             <input type = "number" id = "id" name = "id" min = "1" required/>
             <input type = "submit" name = "project" value = "find" style="width:130px"><br><br>
         </form>
-        <table style="text-align: center" border="1" width="40%">
-            <thead>
-                <c:if test="${not empty message}">
-                    <p style="color:red">${message}</p>
-                </c:if>
-                <c:if test="${not empty projects}">
+        <c:if test="${not empty projects}">
+            <table style="text-align: center" border="1" width="40%">
+                <thead>
                     <h5> Company id = ${company_id} projects: </h5>
                     <tr>
                         <td style="text-align: center"><b>id</b></td>
@@ -31,32 +28,42 @@
                         <td style="text-align: center"><b>cost</b></td>
                         <td style="text-align: center"><b>creation_date</b></td>
                     </tr>
-                </c:if>
-            </thead>
-            <tbody>
-                <c:forEach var = "project" items="${projects}">
-                    <tr>
-                        <td style="text-align: center">
-                            <c:out value="${project.id}"/>
-                        </td>
-                        <td style="text-align: center">
-                            <c:out value="${project.name}"/>
-                        </td>
-                        <td style="text-align: center">
-                            <c:out value="${project.company.id}"/>
-                        </td>
-                        <td style="text-align: center">
-                            <c:out value="${project.customer.id}"/>
-                        </td>
-                        <td style="text-align: center">
-                            <c:out value="${project.cost}"/>
-                        </td>
-                        <td style="text-align: center">
-                            <c:out value="${project.creation_date}"/>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach var = "project" items="${projects}">
+                        <tr>
+                            <td style="text-align: center">
+                                <c:out value="${project.id}"/>
+                            </td>
+                            <td style="text-align: center">
+                                <c:out value="${project.name}"/>
+                            </td>
+                            <td style="text-align: center">
+                                <c:out value="${project.company.id}"/>
+                            </td>
+                            <td style="text-align: center">
+                                <c:out value="${project.customer.id}"/>
+                            </td>
+                            <td style="text-align: center">
+                                <c:out value="${project.cost}"/>
+                            </td>
+                            <td style="text-align: center">
+                                <c:out value="${project.creation_date}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table><br>
+            <form action = "/companies" method = "post">
+                <label for = "name"> project id: </label>
+                <input type = "hidden" name = "company_id" value = ${company_id} />
+                <input type = "number" id = "id" name = "project_id" min = "1" required style="margin-left: 13px;"/><br>
+                <input type = "submit" name = "project" value = "add" style="width:130px">
+                <input type = "submit" name = "project" value = "delete" style="width:130px"><br><br>
+            </form>
+        </c:if>
+        <c:if test="${not empty message}">
+            <p style="color:red">${message}</p>
+        </c:if>
     </body>
 </html>

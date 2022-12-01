@@ -6,34 +6,6 @@
 <html>
     <body>
         <c:import url="${contextPath}/WEB-INF/jsp/company/findCompanyForm.jsp"/>
-        <table style="text-align: center" border="1" width="20%">
-            <thead>
-                <c:if test="${not empty companies}">
-                    <tr>
-                        <td style="text-align: center"><b>id</b></td>
-                        <td style="text-align: center"><b>name</b></td><b>
-                        <td style="text-align: center"><b>location</b></td><b>
-                    </tr>
-                </c:if>
-            </thead>
-                <tbody>
-                    <c:forEach var = "company" items="${companies}">
-                        <tr>
-                            <td style="text-align: center;">
-                                <c:out value="${company.id}"/>
-                            </td>
-                            <td style="text-align: center">
-                                <c:out value="${company.name}"/>
-                            </td>
-                            <td style="text-align: center">
-                                <c:out value="${company.location}"/>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-        </table><br>
-        <c:if test="${not empty message}">
-            <p style="color:red">${message}</p>
-        </c:if>
+        <c:import url="${contextPath}/WEB-INF/jsp/company/companyTable.jsp" />
     </body>
 </html>
