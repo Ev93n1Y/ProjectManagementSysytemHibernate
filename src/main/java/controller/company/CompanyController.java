@@ -3,12 +3,16 @@ package controller.company;
 import config.HibernateProvider;
 import entities.dto.CompanyDto;
 import entities.dto.DeveloperDto;
+import entities.dto.ProjectDto;
 import repository.CompanyRepository;
 import repository.DeveloperRepository;
+import repository.ProjectRepository;
 import service.CompanyService;
 import service.DeveloperService;
+import service.ProjectService;
 import service.converter.CompanyConverter;
 import service.converter.DeveloperConverter;
+import service.converter.ProjectConverter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +27,7 @@ import java.util.List;
 public class CompanyController extends HttpServlet {
     private CompanyService service;
     private DeveloperService developerService;
+    private ProjectService projectService;
     private static final String COMPANY = "/WEB-INF/jsp/company/";
     private static final String DELETE_URL = COMPANY + "deleteCompanyForm.jsp";
     private static final String CREATE_URL = COMPANY + "createCompanyForm.jsp";
@@ -41,6 +46,11 @@ public class CompanyController extends HttpServlet {
         developerService = new DeveloperService(
                 new DeveloperRepository(dbProvider),
                 new DeveloperConverter()
+        );
+
+        projectService = new ProjectService(
+                new ProjectRepository(dbProvider),
+                new ProjectConverter()
         );
     }
 
@@ -77,6 +87,17 @@ public class CompanyController extends HttpServlet {
                 case "delete":
                     deleteDeveloper(req);
                     req.getRequestDispatcher(DEVELOPERS_URL).forward(req, resp);
+                    break;
+            }
+        } else if (req.getParameterMap().containsKey("project")) {
+            switch (req.getParameter("project")) {
+                case "add":
+                    addProject(req);
+                    req.getRequestDispatcher(PROJECTS_URL).forward(req, resp);
+                    break;
+                case "delete":
+                    deleteProject(req);
+                    req.getRequestDispatcher(PROJECTS_URL).forward(req, resp);
                     break;
             }
         } else if (req.getParameterMap().containsKey("method")) {
@@ -159,6 +180,17 @@ public class CompanyController extends HttpServlet {
         }
     }
 
+    private void findDevelopers(HttpServletRequest req) {
+        Integer companyId = Integer.parseInt(req.getParameter("id"));
+        try {
+            req.setAttribute("company_id", companyId);
+            req.setAttribute("developers", service.getCompanyDevelopers(companyId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("message", e.getMessage());
+        }
+    }
+
     private void addDeveloper(HttpServletRequest req) {
         Integer developerId = Integer.parseInt(req.getParameter("dev id"));
         Integer companyId = Integer.parseInt(req.getParameter("company_id"));
@@ -200,11 +232,30 @@ public class CompanyController extends HttpServlet {
         }
     }
 
-    private void findDevelopers(HttpServletRequest req) {
-        Integer companyId = Integer.parseInt(req.getParameter("id"));
+    private void addProject(HttpServletRequest req) {
+        Integer projectId = Integer.parseInt(req.getParameter("project_id"));
+        Integer companyId = Integer.parseInt(req.getParameter("company_id"));
         try {
+            ProjectDto projectDto = projectService.read(projectId).get(0);
+            service.addCompanyProject(companyId, projectDto);
             req.setAttribute("company_id", companyId);
-            req.setAttribute("developers", service.getCompanyDevelopers(companyId));
+            req.setAttribute("projects", service.getCompanyProjects(companyId));
+            req.setAttribute("message", "Project successfully added to company");
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("message", e.getMessage());
+        }
+    }
+
+    private void deleteProject(HttpServletRequest req) {
+        Integer projectId = Integer.parseInt(req.getParameter("project_id"));
+        Integer companyId = Integer.parseInt(req.getParameter("company_id"));
+        try {
+            ProjectDto projectDto = projectService.read(projectId).get(0);
+            service.removeCompanyProject(companyId, projectDto);
+            req.setAttribute("company_id", companyId);
+            req.setAttribute("projects", service.getCompanyProjects(companyId));
+            req.setAttribute("message", "Project successfully deleted from company");
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("message", e.getMessage());
