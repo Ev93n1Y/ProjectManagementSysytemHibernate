@@ -154,12 +154,23 @@ public class CustomerController extends HttpServlet {
         }
     }
 
-    private void addProject(HttpServletRequest req) {
-        Integer projectId = Integer.parseInt(req.getParameter("project_id"));
+    private void findProjects(HttpServletRequest req) {
         Integer customerId = Integer.parseInt(req.getParameter("id"));
         try {
+            req.setAttribute("customer_id", customerId);
+            req.setAttribute("projects", service.getCustomerProjects(customerId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("message", e.getMessage());
+        }
+    }
+
+    private void addProject(HttpServletRequest req) {
+        Integer projectId = Integer.parseInt(req.getParameter("project_id"));
+        Integer customerId = Integer.parseInt(req.getParameter("customer_id"));
+        try {
             ProjectDto projectDto = projectService.read(projectId).get(0);
-            service.addProjectToCustomer(customerId, projectDto);
+            service.addCustomerProject(customerId, projectDto);
             req.setAttribute("projects", service.getCustomerProjects(customerId));
             req.setAttribute("message", "Project successfully added to customer");
         } catch (Exception e) {
@@ -170,23 +181,12 @@ public class CustomerController extends HttpServlet {
 
     private void deleteProject(HttpServletRequest req) {
         Integer projectId = Integer.parseInt(req.getParameter("project_id"));
-        Integer customerId = Integer.parseInt(req.getParameter("id"));
+        Integer customerId = Integer.parseInt(req.getParameter("customer_id"));
         try {
             ProjectDto projectDto = projectService.read(projectId).get(0);
-            service.removeProjectFromCustomer(customerId, projectDto);
+            service.removeCustomerProject(customerId, projectDto);
             req.setAttribute("projects", service.getCustomerProjects(customerId));
             req.setAttribute("message", "Project successfully deleted from customer");
-        } catch (Exception e) {
-            e.printStackTrace();
-            req.setAttribute("message", e.getMessage());
-        }
-    }
-
-    private void findProjects(HttpServletRequest req) {
-        Integer customerId = Integer.parseInt(req.getParameter("id"));
-        try {
-            req.setAttribute("customer_id", customerId);
-            req.setAttribute("projects", service.getCustomerProjects(customerId));
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("message", e.getMessage());
