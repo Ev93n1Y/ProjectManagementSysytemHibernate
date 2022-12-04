@@ -7,10 +7,17 @@
         <property name="dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
         <property name="connection.url">jdbc:postgresql://localhost:5455/go_it_dev_hw3</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.username">${dbUsername}</property>
+        <property name="connection.password">${dbPassword}</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
-        <mapping resource="Message.hbm.xml"/>
+        <property name="enable_lazy_load_no_trans">true</property>
+        <property name="hbn2ddl.auto">validate</property>
+
+        <mapping class="entities.dao.CompanyDao"/>
+        <mapping class="entities.dao.CustomerDao"/>
+        <mapping class="entities.dao.DeveloperDao"/>
+        <mapping class="entities.dao.ProjectDao"/>
+        <mapping class="entities.dao.SkillDao"/>
     </session-factory>
 </hibernate-configuration>
