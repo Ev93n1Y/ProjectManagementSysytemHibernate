@@ -12,8 +12,8 @@ public class ProjectConverter implements Convertable<ProjectDto, ProjectDao>{
         return new ProjectDto(
                 dao.getId(),
                 dao.getName(),
-                new CompanyConverter().from(dao.getCompany()),
-                new CustomerConverter().from(dao.getCustomer()),
+                dao.getCompany(),
+                dao.getCustomer(),
                 dao.getCost(),
                 dao.getCreation_date()
         );
