@@ -238,20 +238,6 @@ public class ProjectController extends HttpServlet {
         }
     }
 
-    private void deleteCustomer(HttpServletRequest req) {
-        Integer projectId = Integer.parseInt(req.getParameter("project_id"));
-        try {
-            service.setProjectCustomer(projectId, new CustomerDto());
-            req.setAttribute("project_id", projectId);
-            Set<CustomerDto> customerDtoSet = new HashSet<>();
-            req.setAttribute("customers", customerDtoSet);
-            req.setAttribute("message", "Customer successfully deleted from project");
-        } catch (Exception e) {
-            e.printStackTrace();
-            req.setAttribute("message", e.getMessage());
-        }
-    }
-
     private void findCompany(HttpServletRequest req) {
         Integer projectId = Integer.parseInt(req.getParameter("project_id"));
         try {
