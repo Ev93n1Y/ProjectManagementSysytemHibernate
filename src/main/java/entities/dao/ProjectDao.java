@@ -1,6 +1,8 @@
 package entities.dao;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -23,11 +25,6 @@ public class ProjectDao {
     @Column(name = "cost")
     private Integer cost;
 
-    //@Column(name = "customer_id")
-    //private Integer customerId;
-    //@Column(name = "company_id")
-    //private Integer companyId;
-
     @Column(name = "creation_date")
     private Date creation_date;
 
@@ -42,11 +39,20 @@ public class ProjectDao {
             fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST}
     )
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "company_id")
     private CompanyDao company;
 
-    @ManyToMany(mappedBy = "developerProjects")
-    private Set<DeveloperDao> developers = new HashSet<>();
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST}
+    )
+    @JoinTable(
+            name = "developers_projects",
+            inverseJoinColumns = {@JoinColumn(name = "developer_id")},
+            joinColumns = {@JoinColumn(name = "project_id")}
+    )
+    private final Set<DeveloperDao> developers = new HashSet<>();
 
     public ProjectDao(Integer id, String name, Integer cost, Date creation_date) {
         this.id = id;

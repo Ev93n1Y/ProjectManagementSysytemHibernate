@@ -31,14 +31,16 @@ public class CompanyDao {
     @JoinTable(
             name = "companies_developers",
             joinColumns = {@JoinColumn(name = "company_id")},
-            inverseJoinColumns = {@JoinColumn(name = "developer_id")},
-            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
-            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+            inverseJoinColumns = {@JoinColumn(name = "developer_id")}
     )
-    private Set<DeveloperDao> companyDevelopers = new HashSet<>();
+    private final Set<DeveloperDao> companyDevelopers = new HashSet<>();
 
-    @OneToMany(mappedBy = "company")
-    private Set<ProjectDao> companyProjects = new HashSet<>();
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST}
+    )
+    @JoinColumn(name = "company_id")
+    private final Set<ProjectDao> companyProjects = new HashSet<>();
 
     public CompanyDao(Integer id, String name, String location) {
         this.id = id;

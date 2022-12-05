@@ -24,8 +24,12 @@ public class CustomerDao {
     @Column(name = "email", length = 100, nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<ProjectDao> customerProjects = new HashSet<>();
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST}
+    )
+    @JoinColumn(name = "customer_id")
+    private final Set<ProjectDao> customerProjects = new HashSet<>();
 
     public CustomerDao(Integer id, String name, String email) {
         this.id = id;

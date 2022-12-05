@@ -33,8 +33,16 @@ public class DeveloperDao {
     @Column(name = "salary", nullable = false)
     private Integer salary;
 
-    @ManyToMany(mappedBy = "companyDevelopers")
-    private Set<CompanyDao> developerCompanies = new HashSet<>();
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST}
+    )
+    @JoinTable(
+            name = "companies_developers",
+            inverseJoinColumns = {@JoinColumn(name = "company_id")},
+            joinColumns = {@JoinColumn(name = "developer_id")}
+    )
+    private final Set<CompanyDao> developerCompanies = new HashSet<>();
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -45,7 +53,7 @@ public class DeveloperDao {
             joinColumns = {@JoinColumn(name = "developer_id")},
             inverseJoinColumns = {@JoinColumn(name = "project_id")}
     )
-    private Set<ProjectDao> developerProjects = new HashSet<>();
+    private final Set<ProjectDao> developerProjects = new HashSet<>();
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -56,7 +64,7 @@ public class DeveloperDao {
             joinColumns = {@JoinColumn(name = "developer_id")},
             inverseJoinColumns = {@JoinColumn(name = "skill_id")}
     )
-    private Set<SkillDao> developerSkills = new HashSet<>();
+    private final Set<SkillDao> developerSkills = new HashSet<>();
 
     public DeveloperDao(Integer id, String name, Integer age, Gender gender, Integer salary) {
         this.id = id;
@@ -82,11 +90,11 @@ public class DeveloperDao {
         return Collections.unmodifiableSet(developerProjects);
     }
 
-    public void addDeveloperCompany(ProjectDao projectDao) {
+    public void addDeveloperProject(ProjectDao projectDao) {
         developerProjects.add(projectDao);
     }
 
-    public void removeDeveloperCompany(ProjectDao projectDao) {
+    public void removeDeveloperProject(ProjectDao projectDao) {
         developerProjects.remove(projectDao);
     }
 
