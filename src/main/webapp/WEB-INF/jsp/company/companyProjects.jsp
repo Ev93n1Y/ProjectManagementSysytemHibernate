@@ -17,12 +17,14 @@
             <input type = "submit" name = "project" value = "find" style="width:130px"><br><br>
         </form>
         <c:import url="${contextPath}/WEB-INF/jsp/project/projectTable.jsp"/>
-        <form action = "/companies" method = "post">
-            <label for = "name"> project id: </label>
-            <input type = "hidden" name = "company_id" value = ${company_id} />
-            <input type = "number" id = "id" name = "project_id" min = "1" required style="margin-left: 13px;"/><br>
-            <input type = "submit" name = "project" value = "add" style="width:130px">
-            <input type = "submit" name = "project" value = "delete" style="width:130px"><br><br>
-        </form>
+        <c:if test="${company_id > 0}">
+            <form action = "/companies" method = "post">
+                <label for = "name"> project id: </label>
+                <input type = "hidden" name = "company_id" value = ${company_id} />
+                <input type = "number" name = "project_id" min = "1" required style="margin-left: 13px;"/><br>
+                <input type = "submit" name = "project" value = "add" style="width:130px">
+                <input type = "submit" name = "project" value = "delete" style="width:130px"><br><br>
+            </form>
+        </c:if>
     </body>
 </html>

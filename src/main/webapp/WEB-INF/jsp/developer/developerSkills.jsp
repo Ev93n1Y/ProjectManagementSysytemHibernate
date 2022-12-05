@@ -17,7 +17,7 @@
             <input type = "submit" name = "skill" value = "find" style="width:130px"><br><br>
         </form>
         <c:import url="${contextPath}/WEB-INF/jsp/skill/skillTable.jsp"/>
-        <c:if test="${not empty skills}">
+        <c:if test="${developer_id > 0}">
             <form action = "/developers" method = "post">
                 <label for = "name"> skill id: </label>
                 <input type = "hidden" name = "developer_id" value = ${developer_id} />

@@ -27,6 +27,6 @@
             </tbody>
     </table><br>
 </c:if>
-<c:if test="${empty skills}">
+<c:if test="${not empty message}">
     <p style="color:red">${message}</p>
 </c:if>

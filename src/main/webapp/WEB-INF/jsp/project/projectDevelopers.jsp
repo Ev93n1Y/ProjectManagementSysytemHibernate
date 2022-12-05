@@ -10,20 +10,20 @@
     </head>
     <body>
         <c:import url="${contextPath}/WEB-INF/jsp/navigation.jsp"/>
-        <h3> Company developers relation </h3><hr>
-        <form action = "/companies">
-            <label for = "name"> company id: </label>
-            <input type = "number" id = "id" name = "id" min = "1" required />
+        <h3> Project developers relation </h3><hr>
+        <form action = "/projects">
+            <label for = "name"> project id: </label>
+            <input type = "number" name = "project_id" min = "1" required/>
             <input type = "submit" name = "developer" value = "find" style="width:130px"><br><br>
         </form>
         <c:import url="${contextPath}/WEB-INF/jsp/developer/developerTable.jsp"/>
-        <c:if test="${company_id > 0}">
-            <form action = "/companies" method = "post">
+        <c:if test="${project_id > 0}">
+            <form action = "/projects" method = "post">
                 <label for = "name"> developer id: </label>
-                <input type = "hidden" name = "company_id" value = ${company_id} />
-                <input type = "number" name = "dev id" min = "1" required style="margin-left: 13px;"/><br>
-                <input type = "submit" name = "dev" value = "add" style="width:130px">
-                <input type = "submit" name = "dev" value = "delete" style="width:130px"><br><br>
+                <input type = "hidden" name = "project_id" value = ${project_id} />
+                <input type = "number" name = "developer_id" min = "1" required style="margin-left: 13px;"/><br>
+                <input type = "submit" name = "developer" value = "add" style="width:130px">
+                <input type = "submit" name = "developer" value = "delete" style="width:130px"><br><br>
             </form>
         </c:if>
     </body>

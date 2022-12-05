@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <c:import url="${contextPath}/WEB-INF/jsp/company/findCompanyForm.jsp"/>
-        <c:import url="${contextPath}/WEB-INF/jsp/company/companyTable.jsp" />
+        <c:import url="${contextPath}/WEB-INF/jsp/project/findProjectForm.jsp"/>
+        <c:import url="${contextPath}/WEB-INF/jsp/project/projectTable.jsp"/>
     </body>
 </html>

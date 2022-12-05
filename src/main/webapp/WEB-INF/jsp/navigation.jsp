@@ -32,10 +32,6 @@
                     <li><a href="/developers/projects">Developer projects</a></li>
                     <li><a href="/developers/companies">Developer companies</a></li>
                     <li><a href="/developers/skills">Developer skills</a></li>
-                    <li><a href="/developers/project devs">Find all developers on project</a></li>
-                    <li><a href="/developers/java devs">Find all Java developers</a></li>
-                    <li><a href="/developers/middle devs">Find all middle developers</a></li>
-                    <li><a href="/developers/salary">Total developers salary at single project</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects <span class="caret"></span></a>
@@ -46,6 +42,8 @@
                     <li><a href="/projects/find all">Find all projects</a></li>
                     <li><a href="/projects/update">Update project</a></li>
                     <li><a href="/projects/developers">Project developers</a></li>
+                    <li><a href="/projects/customer">Project customer</a></li>
+                    <li><a href="/projects/company">Project company</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Skills <span class="caret"></span></a>
@@ -54,7 +52,7 @@
                     <li><a href="/skills/delete">Delete skill</a></li>
                     <li><a href="/skills/find">Find skill</a></li>
                     <li><a href="/skills/update">Update skill</a></li>
-                    <li><a href="/skills/developers">Skill developers skill</a></li>
+                    <li><a href="/skills/developers">Skill developers</a></li>
                 </ul>
             </li>
         </ul>

@@ -17,7 +17,7 @@
             <input type = "submit" name = "project" value = "find" style="width:130px"><br><br>
         </form>
         <c:import url="${contextPath}/WEB-INF/jsp/project/projectTable.jsp"/>
-        <c:if test="${not empty projects}">
+        <c:if test="${developer_id > 0}">
             <form action = "/developers" method = "post">
                 <label for = "name"> project id: </label>
                 <input type = "hidden" name = "developer_id" value = ${developer_id} />
