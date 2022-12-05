@@ -1,6 +1,5 @@
 package entities.dto;
 
-import entities.Department;
 import entities.SkillLevel;
 import lombok.*;
 
@@ -10,10 +9,10 @@ import lombok.*;
 @ToString
 public class SkillDto {
     private Integer id;
-    private Department department;
+    private String department;
     private SkillLevel level;
 
-    public SkillDto(Integer id, Department department, SkillLevel level) {
+    public SkillDto(Integer id, String department, SkillLevel level) {
         this.id = id;
         this.department = department;
         this.level = level;

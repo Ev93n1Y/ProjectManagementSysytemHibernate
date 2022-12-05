@@ -18,7 +18,7 @@
         </form>
         <form action="/skills">
             <label for="name">department: </label>
-            <input type="text" id="department" name="department" required/>
+            <input type = "text" name = "department" required/>
             <input type = "submit" name="method" value = "find department"><br><br>
         </form>
     </body>

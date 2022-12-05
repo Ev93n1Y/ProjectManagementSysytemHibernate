@@ -1,7 +1,6 @@
 package controller.skill;
 
 import config.HibernateProvider;
-import entities.Department;
 import entities.SkillLevel;
 import entities.dto.DeveloperDto;
 import entities.dto.SkillDto;
@@ -107,7 +106,7 @@ public class SkillController extends HttpServlet {
     private void update(HttpServletRequest req) {
         SkillDto dto = new SkillDto();
         dto.setId(Integer.parseInt(req.getParameter("id")));
-        dto.setDepartment(Department.valueOf(req.getParameter("department")));
+        dto.setDepartment(req.getParameter("department"));
         dto.setLevel(SkillLevel.valueOf(req.getParameter("level")));
         try {
             service.read(dto.getId());
@@ -121,7 +120,7 @@ public class SkillController extends HttpServlet {
 
     private void create(HttpServletRequest req) {
         SkillDto dto = new SkillDto();
-        dto.setDepartment(Department.valueOf(req.getParameter("department")));
+        dto.setDepartment(req.getParameter("department"));
         dto.setLevel(SkillLevel.valueOf(req.getParameter("level")));
         try {
             dto = service.create(dto);

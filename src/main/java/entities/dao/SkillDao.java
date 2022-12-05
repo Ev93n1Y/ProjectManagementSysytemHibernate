@@ -1,6 +1,5 @@
 package entities.dao;
 
-import entities.Department;
 import entities.SkillLevel;
 import lombok.*;
 
@@ -21,8 +20,7 @@ public class SkillDao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "department")
-    @Enumerated(EnumType.STRING)
-    private Department department;
+    private String department;
     @Enumerated(EnumType.STRING)
     @Column(name = "level")
     private SkillLevel level;
@@ -38,7 +36,7 @@ public class SkillDao {
     )
     private Set<DeveloperDao> developers = new HashSet<>();
 
-    public SkillDao(Integer id, Department department, SkillLevel level) {
+    public SkillDao(Integer id, String department, SkillLevel level) {
         this.id = id;
         this.department = department;
         this.level = level;

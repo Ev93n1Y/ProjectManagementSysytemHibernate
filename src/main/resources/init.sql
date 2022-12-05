@@ -16,9 +16,7 @@ CREATE TABLE developers
 );
 
 -- skills (отрасль – Java, C++, C#, JS; уровень навыков - Junior, Middle, Senior)
-CREATE TYPE language_enum AS ENUM ('Java', 'C++', 'C#', 'JS');
 CREATE TYPE level_enum AS ENUM ('Junior', 'Middle', 'Senior');
-CREATE CAST (character varying as language_enum) WITH INOUT AS IMPLICIT;
 CREATE CAST (character varying as level_enum) WITH INOUT AS IMPLICIT;
 CREATE TABLE skills (
 	id SERIAL PRIMARY KEY,
@@ -46,8 +44,8 @@ CREATE TABLE projects (
 	name VARCHAR(100) NOT NULL,
 	company_id INT REFERENCES companies(id),
 	customer_id INT REFERENCES customers(id),
-	cost INT
-	creation_date DATE DEFAULT now();
+	cost INT,
+	creation_date DATE DEFAULT now()
 
 );
 
@@ -64,6 +62,7 @@ CREATE TABLE developers_projects (
 	project_id INT REFERENCES projects(id),
 	CONSTRAINT developers_projects_pk PRIMARY KEY (developer_id, project_id)
 );
+
 CREATE TABLE developers_skills (
     id SERIAL,
 	developer_id INT REFERENCES developers(id),

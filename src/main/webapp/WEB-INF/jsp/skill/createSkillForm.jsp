@@ -13,12 +13,7 @@
      <h3> Add new skill </h3><hr>
         <form action = "/skills" method = "post">
             <label > department: </label>
-            <select name="department" style="width:152px">
-                <option value="Java">java</option>
-                <option value="C++">c++</option>
-                <option value="C#">c#</option>
-                <option value="JS">js</option>
-            </select><br>
+            <input type = "text" name = "department" required/><br>
             <label > level: </label>
             <select name="level" style="width:152px;margin-left: 45px">
                 <option value="Junior">junior</option>
