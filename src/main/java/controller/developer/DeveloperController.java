@@ -99,10 +99,10 @@ public class DeveloperController extends HttpServlet {
         } else if (req.getParameterMap().containsKey("project")) {
             findProjects(req);
             req.getRequestDispatcher(PROJECTS_URL).forward(req, resp);
-        } else if (req.getParameterMap().containsKey("company")){
+        } else if (req.getParameterMap().containsKey("company")) {
             findCompanies(req);
             req.getRequestDispatcher(COMPANIES_URL).forward(req, resp);
-        } else if (req.getParameterMap().containsKey("skill")){
+        } else if (req.getParameterMap().containsKey("skill")) {
             findSkills(req);
             req.getRequestDispatcher(SKILLS_URL).forward(req, resp);
         }
@@ -121,7 +121,7 @@ public class DeveloperController extends HttpServlet {
                     req.getRequestDispatcher(PROJECTS_URL).forward(req, resp);
                     break;
             }
-        } else if(req.getParameterMap().containsKey("company")){
+        } else if (req.getParameterMap().containsKey("company")) {
             switch (req.getParameter("company")) {
                 case "add":
                     addCompany(req);
@@ -132,7 +132,7 @@ public class DeveloperController extends HttpServlet {
                     req.getRequestDispatcher(COMPANIES_URL).forward(req, resp);
                     break;
             }
-        } else if(req.getParameterMap().containsKey("skill")){
+        } else if (req.getParameterMap().containsKey("skill")) {
             switch (req.getParameter("skill")) {
                 case "add":
                     addSkill(req);
