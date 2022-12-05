@@ -171,6 +171,7 @@ public class CustomerController extends HttpServlet {
         try {
             ProjectDto projectDto = projectService.read(projectId).get(0);
             service.addCustomerProject(customerId, projectDto);
+            req.setAttribute("customer_id", customerId);
             req.setAttribute("projects", service.getCustomerProjects(customerId));
             req.setAttribute("message", "Project successfully added to customer");
         } catch (Exception e) {
@@ -185,6 +186,7 @@ public class CustomerController extends HttpServlet {
         try {
             ProjectDto projectDto = projectService.read(projectId).get(0);
             service.removeCustomerProject(customerId, projectDto);
+            req.setAttribute("customer_id", customerId);
             req.setAttribute("projects", service.getCustomerProjects(customerId));
             req.setAttribute("message", "Project successfully deleted from customer");
         } catch (Exception e) {
