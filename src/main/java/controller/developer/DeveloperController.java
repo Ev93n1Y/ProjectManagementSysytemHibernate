@@ -38,10 +38,6 @@ public class DeveloperController extends HttpServlet {
     private static final String CREATE_URL = DEVELOPER + "createDeveloperForm.jsp";
     private static final String UPDATE_URL = DEVELOPER + "updateDeveloperForm.jsp";
     private static final String FIND_URL = DEVELOPER + "findDeveloper.jsp";
-    private static final String PROJECT_TOTAL_SALARY_URL = DEVELOPER + "totalProjectDevelopersSalary.jsp";
-    private static final String PROJECT_DEVELOPERS_URL = DEVELOPER + "findDevelopersOnProject.jsp";
-    private static final String JAVA_DEVELOPERS_URL = DEVELOPER + "findJavaDevelopers.jsp";
-    private static final String MIDDLE_DEVELOPERS_URL = DEVELOPER + "findMiddleDevelopers.jsp";
     private static final String PROJECTS_URL = DEVELOPER + "developerProjects.jsp";
     private static final String COMPANIES_URL = DEVELOPER + "developerCompanies.jsp";
     private static final String SKILLS_URL = DEVELOPER + "developerSkills.jsp";
@@ -78,22 +74,6 @@ public class DeveloperController extends HttpServlet {
                 case "find name":
                     findByName(req);
                     req.getRequestDispatcher(FIND_URL).forward(req, resp);
-                    break;
-                case "find devs by project id":
-                    findDevelopersOnProject(req);
-                    req.getRequestDispatcher(PROJECT_DEVELOPERS_URL).forward(req, resp);
-                    break;
-                case "Find java devs":
-                    findAllJavaDevelopers(req);
-                    req.getRequestDispatcher(JAVA_DEVELOPERS_URL).forward(req, resp);
-                    break;
-                case "Find middle devs":
-                    findAllMiddleDevelopers(req);
-                    req.getRequestDispatcher(MIDDLE_DEVELOPERS_URL).forward(req, resp);
-                    break;
-                case "salary":
-                    totalDevelopersSalaryAtProject(req);
-                    req.getRequestDispatcher(PROJECT_TOTAL_SALARY_URL).forward(req, resp);
                     break;
             }
         } else if (req.getParameterMap().containsKey("project")) {
@@ -225,40 +205,6 @@ public class DeveloperController extends HttpServlet {
         } catch (RuntimeException e) {
             req.setAttribute("message", e.getMessage());
         }
-    }
-
-    private void findDevelopersOnProject(HttpServletRequest req) {
-        int id = Integer.parseInt(req.getParameter("id"));
-        List<DeveloperDto> dtoList = service.allDevelopersByProject(id);
-        if (dtoList.isEmpty()) {
-            req.setAttribute("message", "There is no developers by specified project id");
-        } else {
-            req.setAttribute("developers", dtoList);
-        }
-    }
-
-    private void findAllJavaDevelopers(HttpServletRequest req) {
-        List<DeveloperDto> dtoList = service.allJavaDevelopers();
-        if (dtoList.isEmpty()) {
-            req.setAttribute("message", "There is no Java developers");
-        } else {
-            req.setAttribute("developers", dtoList);
-        }
-    }
-
-    private void findAllMiddleDevelopers(HttpServletRequest req) {
-        List<DeveloperDto> dtoList = service.allMiddleDevelopers();
-        if (dtoList.isEmpty()) {
-            req.setAttribute("message", "There is no middle developers");
-        } else {
-            req.setAttribute("developers", dtoList);
-        }
-    }
-
-    private void totalDevelopersSalaryAtProject(HttpServletRequest req) {
-        int totalSalary = service.totalDevelopersSalaryByProject(Integer.parseInt(req.getParameter("id")));
-        req.setAttribute("id", req.getParameter("id"));
-        req.setAttribute("salary", totalSalary);
     }
 
     private void findProjects(HttpServletRequest req) {

@@ -61,37 +61,6 @@ public class DeveloperService implements Crud<DeveloperDto> {
         repository.deleteById(id);
     }
 
-    public Integer totalDevelopersSalaryByProject(Integer id) {
-        return repository.selectTotalSalaryByProjectId(id);
-    }
-
-    public List<DeveloperDto> allDevelopersByProject(Integer id) {
-        List<DeveloperDao> daoList = repository.selectAllDevelopersByProject(id);
-        List<DeveloperDto> dtoList = new ArrayList<>();
-        for (DeveloperDao dao : daoList) {
-            dtoList.add(converter.from(dao));
-        }
-        return dtoList;
-    }
-
-    public List<DeveloperDto> allJavaDevelopers() {
-        List<DeveloperDao> daoList = repository.selectAllJavaDevelopers();
-        List<DeveloperDto> dtoList = new ArrayList<>();
-        for (DeveloperDao dao : daoList) {
-            dtoList.add(converter.from(dao));
-        }
-        return dtoList;
-    }
-
-    public List<DeveloperDto> allMiddleDevelopers() {
-        List<DeveloperDao> daoList = repository.selectAllMiddleDevelopers();
-        List<DeveloperDto> dtoList = new ArrayList<>();
-        for (DeveloperDao dao : daoList) {
-            dtoList.add(converter.from(dao));
-        }
-        return dtoList;
-    }
-
     public Set<ProjectDto> getDeveloperProjects(Integer developerId) {
         Set<ProjectDto> projectDtoSet = new ProjectConverter().fromDaoSet(repository.selectById(developerId).get(0)
                 .getDeveloperProjects());
