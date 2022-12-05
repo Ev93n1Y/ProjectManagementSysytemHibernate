@@ -1,7 +1,6 @@
 package controller.project;
 
 import config.HibernateProvider;
-import entities.dao.CustomerDao;
 import entities.dto.*;
 import repository.CompanyRepository;
 import repository.CustomerRepository;
@@ -277,19 +276,6 @@ public class ProjectController extends HttpServlet {
             companyDtoSet.add(service.getProjectCompany(projectId));
             req.setAttribute("companies", companyDtoSet);
             req.setAttribute("message", "Company successfully added to project");
-        } catch (Exception e) {
-            e.printStackTrace();
-            req.setAttribute("message", e.getMessage());
-        }
-    }
-
-    private void deleteCompany(HttpServletRequest req) {
-        Integer projectId = Integer.parseInt(req.getParameter("project_id"));
-        try {
-            service.setProjectCompany(projectId, null);
-            req.setAttribute("project_id", projectId);
-            req.setAttribute("companies", service.getProjectCompany(projectId));
-            req.setAttribute("message", "Company successfully deleted from project");
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("message", e.getMessage());
