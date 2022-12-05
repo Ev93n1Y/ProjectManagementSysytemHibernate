@@ -5,6 +5,7 @@ ALTER SCHEMA PUBLIC OWNER TO root;
 
 -- developers (данные о разработчиках(имя, возраст, пол и прочее))
 CREATE TYPE gender_enum AS ENUM ('male', 'female');
+CREATE CAST (character varying as gender_enum) WITH INOUT AS IMPLICIT;
 CREATE TABLE developers
 (
 	id SERIAL PRIMARY KEY,
@@ -17,6 +18,8 @@ CREATE TABLE developers
 -- skills (отрасль – Java, C++, C#, JS; уровень навыков - Junior, Middle, Senior)
 CREATE TYPE language_enum AS ENUM ('Java', 'C++', 'C#', 'JS');
 CREATE TYPE level_enum AS ENUM ('Junior', 'Middle', 'Senior');
+CREATE CAST (character varying as language_enum) WITH INOUT AS IMPLICIT;
+CREATE CAST (character varying as level_enum) WITH INOUT AS IMPLICIT;
 CREATE TABLE skills (
 	id SERIAL PRIMARY KEY,
 	department language_enum,
@@ -44,25 +47,26 @@ CREATE TABLE projects (
 	company_id INT REFERENCES companies(id),
 	customer_id INT REFERENCES customers(id),
 	cost INT
+	creation_date DATE DEFAULT now();
 
 );
 
 CREATE TABLE companies_developers (
+    id SERIAL,
 	company_id INT REFERENCES companies(id),
 	developer_id INT REFERENCES developers(id),
 	CONSTRAINT companies_developers_pk PRIMARY KEY (company_id, developer_id)
 );
 
 CREATE TABLE developers_projects (
+    id SERIAL,
 	developer_id INT REFERENCES developers(id),
 	project_id INT REFERENCES projects(id),
 	CONSTRAINT developers_projects_pk PRIMARY KEY (developer_id, project_id)
 );
 CREATE TABLE developers_skills (
+    id SERIAL,
 	developer_id INT REFERENCES developers(id),
 	skill_id INT REFERENCES skills(id),
 	CONSTRAINT developers_skills_pk PRIMARY KEY (developer_id, skill_id)
 );
-
-ALTER TABLE projects
-ADD COLUMN IF NOT EXISTS creation_date DATE DEFAULT now();
